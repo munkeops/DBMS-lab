@@ -1,0 +1,115 @@
+WRITE A PLS SQL STORED PROCEDURE TO UPDATE DEPT LOC FOR DEPT NO. 10 to block c
+
+update dept_544 set loc='block-c' where dnum=10;
+crete or replace
+
+SET SERVEROUTPUT ON
+create procedure proc1 as 
+begin
+update dept_544 set loc='Block-c' where dnum=10;
+dbms_output.put_line('update done');
+end;
+/
+exec proc1;
+
+
+WRITE A STORED PROCEDURE TO PRINT STUDENT AGE WITH A GIVEN ID
+
+SET SERVEROUTPUT ON
+create procedure proc4(id IN number) as x number;
+begin
+select sage into x from student_544 where sid =id;
+dbms_output.put_line('age is'||x||'for id'||id);
+end;
+/
+exec proc4(101);
+
+
+
+SET SERVEROUTPUT ON
+create procedure proc2(id IN number,x OUT number) as 
+begin
+select sage into x from student_544 where sid =id;
+end;
+/
+
+declare
+i number;
+age number;
+begin
+i:=101;
+proc2(i,age);
+dbms_output.put_line('age is'||age||'for id'||i);
+end;
+/
+
+
+WRITE A SIIMPLE PROCEDURE THAT TAKES DEPT NO AS ARGUMENT AND PRINTS THE STUDENT ID AND NAME USING CURSORS(not got solution yet)
+
+SET SERVEROUTPUT ON
+create procedure proc3(deptno in number)as
+declare
+
+stdname student_544.name %type;
+cursor stdid is select sid from student_544;
+begin
+open stdid;
+loop
+fetch stdid into stud_id;
+exit when dept_no % notfound;
+select sname into stdname from student_544 where dept=deptno;
+dbms_output.put_line('sid is '||stdid ||' name is ' ||sname);
+close stdid;
+end;
+/
+
+
+Create or replace function f1(id in number) return number is
+var number;
+begin
+select sage into var from student_544 where sid=id;
+return var;
+end;
+/
+
+declare
+age number;
+begin
+age:=f1(101);
+dbms_output.put_line('age is' || age);
+end;
+/
+
+PROC IN ANOTHER PROC
+
+
+SET SERVEROUTPUT ON
+create or replace PROCEDURE proc5 as
+begin
+dbms_output.put_line('proc 6 is succesful');
+end;
+/
+
+create or replace procedure proc6 as
+begin
+proc5;
+end;
+/
+exec proc6;
+
+FUNC AND PROC IN A PROC
+
+create or replace procedure sp2( a in number) as 
+begin
+dbms_output.put_line('age is ' || a);
+end;
+/
+create or replace procedure sp1(id in number) as
+n number ;
+begin
+n:=f1(id);
+sp2(n);
+end;
+/
+
+exec sp1(118);

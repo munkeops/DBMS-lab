@@ -1,0 +1,288 @@
+select distinct sid, sname from student_544  join student_project_544 on sid=sno ;
+
+       SID SNAME
+---------- --------------------
+       101 Kiran
+       114 Murali
+       105 John
+       109 Abdul
+       118 Komal
+
+a)SQL> select dname from dealers_544 where did in (select did from trades_544 join cars_544 on trades_544.cid=cars_544.cid where manufacturer ='Ford') ;
+
+DNAME
+------------------------------
+A1 Motors
+Hot Wheels
+Car Market
+
+b)SQL> select model,color from trades_544 join cars_544 on trades_544.cid = cars_544.cid where did in (select did from dealers_544 where dname='Hot Wheels');
+
+MODEL                          COLOR
+------------------------------ ------------------------------
+Ford GT                        red
+Ford GT                        blue
+Ferrari F40                    red
+Lamborghini Aventador          yellow
+
+c)SQL> select model from cars_544 where cid in(select cid from  dealers_544 join trades_544 on dealers_544.did = trades_544.did where cid not in(select cid from dealers_544 join trades_544 on dealers_544.did = trades_544.did where dname='Best Deals') and dname ='Hot Wheels');
+
+MODEL
+------------------------------
+Ferrari F40
+Ford GT
+
+f)SQL> select distinct model from cars_544 where model not in (select model from cars_544 where cid in (select cid from trades_544 join dealers_544 on dealers_544.did=trades_544.did where dname='Wheel Magic'));
+
+MODEL
+------------------------------
+Jaguar XJS
+Lotus Esprit
+Audi R8
+Eldorado
+Ford Mustang
+Ford GT
+BMW M1
+
+g)SQL>  select manufacturer from cars_544 where cid in(select cid from  dealers_544 join trades_544 on dealers_544.did = trades_544.did where cid not in(select cid from dealers_544 join trades_544 on dealers_544.did = trades_544.did where dname='Hot Wheels') and dname ='Car Market');
+
+MANUFACTURER
+--------------------
+Porche
+Chevrolet
+BMW
+
+d)
+
+
+4)SQL> insert into manu_model values('Ferrari Portofino','Ferrari',112);
+
+1 row created.
+
+SQL> select * from manu_model;
+
+MODEL                          MANUFACTURER                CID
+------------------------------ -------------------- ----------
+Jaguar XJS                     Jaguar                      101
+Chevrolet Camaro               Chevrolet                   102
+Lotus Esprit                   Lotus Cars                  103
+Ford GT                        Ford                        104
+Eldorado                       Cadillac                    105
+BMW M1                         BMW                         106
+Ferrari F40                    Ferrari                     107
+Porche Spyder                  Porche                      108
+Lamborghini Aventador          Lamborghini                 109
+Audi R8                        Audi Sport                  110
+Ford Mustang                   Ford                        111
+
+MODEL                          MANUFACTURER                CID
+------------------------------ -------------------- ----------
+Ferrari Portofino              Ferrari                     112
+
+12 rows selected.
+
+
+5)SQL> delete from manu_model where manufacturer ='Ferrari';
+
+2 rows deleted.
+
+SQL> select * from manu_model;
+
+MODEL                          MANUFACTURER                CID
+------------------------------ -------------------- ----------
+Jaguar XJS                     Jaguar                      101
+Chevrolet Camaro               Chevrolet                   102
+Lotus Esprit                   Lotus Cars                  103
+Ford GT                        Ford                        104
+Eldorado                       Cadillac                    105
+BMW M1                         BMW                         106
+Porche Spyder                  Porche                      108
+Lamborghini Aventador          Lamborghini                 109
+Audi R8                        Audi Sport                  110
+Ford Mustang                   Ford                        111
+
+10 rows selected.
+
+
+6)
+SQL> create view manu_model1 as select model ,manufacturer from cars_544;
+
+View created.
+
+SQL> insert into manu_model1 values('BMW X5','BMW');
+insert into manu_model1 values('BMW X5','BMW')
+*
+ERROR at line 1:
+ORA-01400: cannot insert NULL into ("XJ1A0544"."CARS_544"."CID")
+
+
+
+7)SQL> create view trader_model as select dealers_544.dname as tname,cars_544.model,trades_544.color from trades_544,cars_544,dealers_544 where trades_544.cid=cars_544.cid and trades_544.did=dealers_544.did;
+
+View created.
+
+SQL> select * from trader_model;
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+A1 Motors                      Jaguar XJS
+black
+
+Best Deals                     Jaguar XJS
+blue
+
+Wheel Magic                    Chevrolet Camaro
+yellow
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+Best Deals                     Chevrolet Camaro
+yellow
+
+Car Market                     Chevrolet Camaro
+blue
+
+A1 Motors                      Ford GT
+yellow
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+Hot Wheels                     Ford GT
+blue
+
+Hot Wheels                     Ford GT
+red
+
+Car Market                     Ford GT
+black
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+A1 Motors                      BMW M1
+white
+
+Car Market                     BMW M1
+red
+
+Wheel Magic                    Porche Spyder
+grey
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+Car Market                     Porche Spyder
+grey
+
+A1 Motors                      Lamborghini Aventador
+red
+
+Hot Wheels                     Lamborghini Aventador
+yellow
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+Wheel Magic                    Lamborghini Aventador
+grey
+
+Best Deals                     Lamborghini Aventador
+black
+
+Car Market                     Lamborghini Aventador
+red
+
+
+TNAME                          MODEL
+------------------------------ ------------------------------
+COLOR
+------------------------------
+Best Deals                     Audi R8
+blue
+
+A1 Motors                      Ford Mustang
+yellow
+
+
+20 rows selected.
+
+
+
+SQL> select * from cars_544
+  2  ;
+
+MODEL                          MANUFACTURER                CID   TOPSPEED
+------------------------------ -------------------- ---------- ----------
+Ford Mustang                   Ford                        111
+Jaguar XJS                     Jaguar                      101        146
+Chevrolet Camaro               Chevrolet                   102        170
+Lotus Esprit                   Lotus Cars                  103        138
+Ford GT                        Ford                        104        216
+Eldorado                       Cadillac                    105        130
+BMW M1                         BMW                         106        155
+Ferrari F40                    Ferrari                     107        201
+Porche Spyder                  Porche                      108        218
+Lamborghini Aventador          Lamborghini                 109        217
+Audi R8                        Audi Sport                  110        196
+
+11 rows selected.
+
+SQL> select * from dealers_544;
+
+DNAME                                 DID
+------------------------------ ----------
+A1 Motors                             801
+Hot Wheels                            802
+Wheel Magic                           803
+Best Deals                            804
+Car Market                            805
+
+SQL> select * from trades_544;
+
+       CID        DID COLOR
+---------- ---------- ------------------------------
+       109        805 red
+       111        801 yellow
+       104        801 yellow
+       110        804 blue
+       101        801 black
+       101        804 blue
+       102        803 yellow
+       102        804 yellow
+       102        805 blue
+       104        802 blue
+       104        802 red
+
+       CID        DID COLOR
+---------- ---------- ------------------------------
+       104        805 black
+       106        801 white
+       106        805 red
+       107        802 red
+       107        803 red
+       107        805 red
+       108        803 grey
+       108        805 grey
+       109        801 red
+       109        802 yellow
+       109        803 grey
+
+       CID        DID COLOR
+---------- ---------- ------------------------------
+       109        804 black
+
+23 rows selected.

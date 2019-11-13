@@ -1,0 +1,9 @@
+select distinct sid, sname from student_544  join student_project_544 on sid=sno ;
+
+       SID SNAME
+---------- --------------------
+       101 Kiran
+       114 Murali
+       105 John
+       109 Abdul
+       118 Komal

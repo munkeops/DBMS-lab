@@ -1,0 +1,48 @@
+
+SET SERVEROUTPUT ON
+begin
+update project_544 set ploc ='Hyderabad' where ploc = 'Chennai';
+end;
+
+write anonymous codeblock to print dept no. when it is 10 and its dept location;
+
+SET SERVEROUTPUT ON
+declare
+dep_dno dept_544.dnum %type;
+dep_dloc dept_544.loc %type;
+cursor dep_exp is select dnum from dept_544;
+
+begin
+
+open dep_exp;
+loop
+fetch dep_exp into dep_dno;
+exit when dep_exp % notfound;
+select loc into dep_dloc from dept_544 where dnum='10';
+dbms_output.put_line('dnumber is '||dep_dno ||' location is ' ||dep_dloc);
+end loop;
+close dep_exp;
+end;
+/
+
+
+multiply student number by 10 and see if change is reflected in table 
+
+
+SET SERVEROUTPUT ON
+declare
+age student_544.sage %type;
+cursor s_exp is select sage from student_544;
+
+begin
+
+open s_exp;
+loop
+fetch s_exp into age;
+exit when s_exp % notfound;
+update student_544 set sage=sage*10 where age=sage;
+dbms_output.put_line('sage is '||age);
+end loop;
+close s_exp;
+end;
+/

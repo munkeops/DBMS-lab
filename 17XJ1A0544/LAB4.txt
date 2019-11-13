@@ -1,0 +1,64 @@
+SQL> select sid,sname from Student_544 where sid in (select sno from Student_Project_544 );
+
+       SID SNAME
+---------- --------------------
+       101 Kiran
+       105 John
+       109 Abdul
+       114 Murali
+       118 Komal
+
+SQL> select sid,sname from Student_544 where exists (select sno from Student_Project_544 where sid=sno) ;
+
+       SID SNAME
+---------- --------------------
+       101 Kiran
+       105 John
+       109 Abdul
+       114 Murali
+       118 Komal
+
+
+SQL> select sid , sname from Student_544 minus select sid,sname from Student_544 where sid in (select sno from Student_Project_544 );
+
+       SID SNAME
+---------- --------------------
+       102 Mohan
+       108 Gopal
+       110 Narmada
+       121 Govinda
+
+SQL> select sid,sname from Student_544 where sid not in (select sno from Student_Project_544 );
+
+       SID SNAME
+---------- --------------------
+       102 Mohan
+       108 Gopal
+       110 Narmada
+       121 Govinda
+
+SQL> select sid,sname from Student_544 where not exists (select sno from Student_Project_544 where sid=sno);
+
+       SID SNAME
+---------- --------------------
+       102 Mohan
+       108 Gopal
+       110 Narmada
+       121 Govinda
+
+SQL> select pno , count(*) as no_of_projects from Student_Project_544 group by pno;
+
+       PNO NO_OF_PROJECTS
+---------- ----------
+         1          3
+         2          4
+         4          2
+         3          1
+
+SQL> select pno , count(*) as no_of_projects from Student_Project_544 group by pno having count(*)>2;
+
+       PNO NO_OF_PROJECTS
+---------- --------------
+         1              3
+         2              4
+

@@ -1,0 +1,72 @@
+SET SERVEROUTPUT ON
+ declare
+    a integer:=5;
+    b integer :=10;
+    c integer;
+begin
+    c:=a+b;
+    dbms_output.put_line('my op is'||c);
+    end;
+    /
+
+
+
+
+SET SERVEROUTPUT ON
+DECLARE
+i integer :=0;
+BEGIN
+LOOP
+dbms_output.put_line(i);
+i:=i+1;
+exit when i=5;
+end loop;
+END;
+
+
+SET SERVEROUTPUT ON
+DECLARE
+counter integer :=0;
+begin
+for counter in 0..10
+loop
+dbms_output.put_line(counter);
+end loop;
+end;
+/
+
+
+SET SERVEROUTPUT ON
+DECLARE
+counter integer :=0;
+begin
+while counter<10
+loop
+dbms_output.put_line(counter);
+counter:=counter+1;
+end loop;
+end;
+/
+
+SET SERVEROUTPUT ON
+DECLARE
+counter integer :=11;
+begin
+if counter>10
+then dbms_output.put_line('tall');
+elseif counter<10 and counter >6
+then dbms_output.put_line('medium');
+else dbms_output.put_line('short');
+end if;
+end;
+/
+
+
+SET SERVEROUTPUT ON
+
+BEGIN
+
+dbms_output.put_line(insert into );
+
+END;
+
