@@ -1,0 +1,25 @@
+
+TRIGGERS
+
+SET SERVEROUTPUT ON
+create or replace trigger t1 before insert on dept_544 for each row
+begin
+dbms_output.put_line('hi');
+end;
+/
+
+
+CREATING OWN USER
+
+create user tom identified by tom123 default tablespace user on tablepspace temp;
+
+
+
+
+>grant connect on tom id by tom123;
+>connect tom/tom123;
+>select * from std;
+>reconnect
+>grant select on tom id by tom123;
+>connect tom/tom123;
+>select * from system.std;
